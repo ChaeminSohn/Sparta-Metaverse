@@ -14,7 +14,7 @@ public class PlayerCtrl : BaseCtrl
     private InputActionMap flappyMap;
 
     private InputAction moveAction;
-    private InputAction jumpAction;
+    private InputAction flapAction;
     private InputAction lookAction;
 
 
@@ -24,10 +24,10 @@ public class PlayerCtrl : BaseCtrl
         playerInputSystem = GlobalInputManager.Instance.GetInputSystem();
 
         platformMap = playerInputSystem.MainPlatform;
-        //flappyMap = playerInputSystem.FlappyGame;
+        flappyMap = playerInputSystem.FlappyGame;
 
         moveAction = platformMap.FindAction("Move");
-        //jumpAction = flappyMap.FindAction("Jump");
+        flapAction = flappyMap.FindAction("Flap");
         lookAction = platformMap.FindAction("Look");
     }
 
@@ -42,7 +42,7 @@ public class PlayerCtrl : BaseCtrl
         moveAction.performed += OnMove;
         moveAction.canceled += OnMoveCanceled;
         lookAction.performed += OnLook;
-        //jumpAction.performed += OnJump;
+        flapAction.performed += OnJump;
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -75,7 +75,8 @@ public class PlayerCtrl : BaseCtrl
     }
 
     void OnJump(InputAction.CallbackContext context)
-    { 
+    {
+        Jump();
     }
  
 }
