@@ -175,7 +175,7 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             ""id"": ""adc01d5f-bb1c-4055-aa54-b5e62dade4da"",
             ""actions"": [
                 {
-                    ""name"": ""Flap"",
+                    ""name"": ""Jump"",
                     ""type"": ""Value"",
                     ""id"": ""f96670a4-7b8d-42fc-be4f-616a0af1d745"",
                     ""expectedControlType"": """",
@@ -192,7 +192,7 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Flap"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -207,7 +207,7 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         m_MainPlatform_Look = m_MainPlatform.FindAction("Look", throwIfNotFound: true);
         // FlappyGame
         m_FlappyGame = asset.FindActionMap("FlappyGame", throwIfNotFound: true);
-        m_FlappyGame_Flap = m_FlappyGame.FindAction("Flap", throwIfNotFound: true);
+        m_FlappyGame_Jump = m_FlappyGame.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -323,12 +323,12 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
     // FlappyGame
     private readonly InputActionMap m_FlappyGame;
     private List<IFlappyGameActions> m_FlappyGameActionsCallbackInterfaces = new List<IFlappyGameActions>();
-    private readonly InputAction m_FlappyGame_Flap;
+    private readonly InputAction m_FlappyGame_Jump;
     public struct FlappyGameActions
     {
         private @PlayerInputSystem m_Wrapper;
         public FlappyGameActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Flap => m_Wrapper.m_FlappyGame_Flap;
+        public InputAction @Jump => m_Wrapper.m_FlappyGame_Jump;
         public InputActionMap Get() { return m_Wrapper.m_FlappyGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -338,16 +338,16 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_FlappyGameActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_FlappyGameActionsCallbackInterfaces.Add(instance);
-            @Flap.started += instance.OnFlap;
-            @Flap.performed += instance.OnFlap;
-            @Flap.canceled += instance.OnFlap;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IFlappyGameActions instance)
         {
-            @Flap.started -= instance.OnFlap;
-            @Flap.performed -= instance.OnFlap;
-            @Flap.canceled -= instance.OnFlap;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IFlappyGameActions instance)
@@ -372,6 +372,6 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
     }
     public interface IFlappyGameActions
     {
-        void OnFlap(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

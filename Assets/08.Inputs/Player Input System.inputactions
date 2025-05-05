@@ -153,7 +153,7 @@
             "id": "adc01d5f-bb1c-4055-aa54-b5e62dade4da",
             "actions": [
                 {
-                    "name": "Flap",
+                    "name": "Jump",
                     "type": "Value",
                     "id": "f96670a4-7b8d-42fc-be4f-616a0af1d745",
                     "expectedControlType": "",
@@ -170,7 +170,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Flap",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

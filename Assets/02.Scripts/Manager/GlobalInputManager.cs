@@ -13,6 +13,9 @@ public class GlobalInputManager : MonoBehaviour
 
     private PlayerInputSystem playerInputSystem;
 
+    // Map 변경을 다른 스크립트에 알리기 위한 이벤트
+    public event Action<string> OnMapChanged;
+
 
     void Awake()
     {
@@ -28,6 +31,7 @@ public class GlobalInputManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        OnSceneChanged(SceneManager.GetActiveScene(), SceneManager.GetActiveScene());
     }
 
     private void OnEnable()
@@ -80,6 +84,9 @@ public class GlobalInputManager : MonoBehaviour
         if (targetMap != null)
         {
             targetMap.Enable();
+            Debug.Log($"[InputManager] Action Map switched to: '{mapName}'");
+            // 맵이 성공적으로 변경되었음을 이벤트로 알림
+            OnMapChanged?.Invoke(mapName);
         }
         else
         {

@@ -25,11 +25,11 @@ public class BaseCtrl : MonoBehaviour, IControlHandler
 
     protected virtual void Update()
     {
-        //Rotate(lookDirection);
+        Rotate(lookDirection);
     }
     protected virtual void FixedUpdate()
     {
-        //Move(moveDirection);
+        Move(moveDirection);
     }
 
     /*

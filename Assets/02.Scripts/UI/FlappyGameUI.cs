@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameOverZone : MonoBehaviour
+public class FlappyGameUI : BaseUI
 {
+    protected override UIState GetUIState()
+    {
+        return UIState.Game;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
