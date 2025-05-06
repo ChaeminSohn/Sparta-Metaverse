@@ -49,6 +49,7 @@ public class PlatformControlStrategy : IControlStrategy
         // 이동 방향에 따라 스프라이트 뒤집기
         if (input.x > 0) spriteRenderer.flipX = false;
         else if (input.x < 0) spriteRenderer.flipX = true;
+        playerAnimCtrl.Move(moveDirection);
     }
 
     public void ProcessTurn(InputAction.CallbackContext context) { }
