@@ -66,6 +66,12 @@ public class GlobalInputManager : MonoBehaviour
             case "FlappyGame":
                 targetMapName = "FlappyGame";
                 break;
+            case "JumpUpGame":
+                targetMapName = "JumpUpGame";
+                break;
+            case "InfiniteStairsGame":
+                targetMapName = "InfiniteStairsGame";
+                break;
             default:
                 Debug.LogWarning($"Scene '{scene.name}'에 대한 특정 Action Map이 설정되지 않았습니다. '{targetMapName}' 맵을 사용합니다.");
                 break;

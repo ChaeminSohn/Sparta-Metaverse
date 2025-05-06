@@ -2,23 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class FlappyUIManager : MonoBehaviour
+    public class FlappyUIManager : UIManager
 {
-    [SerializeField] GameObject startUI;
-    [SerializeField] GameObject gameUI;
-    [SerializeField] GameObject gameOverUI;
-
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        startUI = GetComponentInChildren<FlappyStartUI>(true);
+        gameUI  = GetComponentInChildren<FlappyGameUI>(true);
+        gameOverUI = GetComponentInChildren<FlappyGameOverUI>(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    public override void UpdateUI()
+    {
+        base.UpdateUI();
+        ((FlappyGameUI)gameUI).UpdateScore(FlappyGameManager.Instance.currentScore);
+    }
 
 }

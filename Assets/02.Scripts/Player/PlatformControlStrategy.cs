@@ -1,28 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PlatformControlStrategy : IControlStrategy
 {
     private PlayerCtrl player;
+    private StatCtrl stat;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private PlayerAnimCtrl playerAnimCtrl;
+    private Vector2 moveDirection = Vector2.zero;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
     public void Enter(PlayerCtrl player)
     {
         this.player = player;
+        stat = player.GetComponent<StatCtrl>();
         player.transform.position = Vector3.zero;
-        this.rb = player.GetComponent<Rigidbody2D>();
-        this.spriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
+        rb = player.GetComponent<Rigidbody2D>();
+        spriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
+        playerAnimCtrl = player.GetComponent<PlayerAnimCtrl>();
+        playerAnimCtrl.Init();
         spriteRenderer.flipX = false;
         Debug.Log("Platformer Strategy 2D Activated");
         // 플랫폼 게임에 맞는 Rigidbody 중력 설정 
         rb.gravityScale = 0f;
-        rb.velocity = Vector2.zero; // 시작 시 속도 초기화
     }
 
     public void Exit()
@@ -32,27 +39,29 @@ public class PlatformControlStrategy : IControlStrategy
         if (rb != null) rb.velocity = Vector2.zero;
     }
 
-    public void ProcessMovement(Vector2 input)
+    public void ProcessMovement(InputAction.CallbackContext context)
     {
+        Vector2 input = context.ReadValue<Vector2>();
         // 좌우 이동 (Velocity 직접 제어 방식 예시)
-        rb.velocity = new Vector2(input.x * moveSpeed, input.y * moveSpeed);
+        moveDirection = new Vector2(input.x, input.y).normalized;
+
 
         // 이동 방향에 따라 스프라이트 뒤집기
         if (input.x > 0) spriteRenderer.flipX = false;
         else if (input.x < 0) spriteRenderer.flipX = true;
     }
 
-    public void ProcessJump(InputAction.CallbackContext context)
-    {
-        // context.performed는 점프 키가 눌렸을 때를 의미 (Input Action 설정에 따라 다름)
-        if (context.performed)
-        {
-            // 바닥 체크 로직 필요 (여기서는 생략)
-            Debug.Log("Platformer Jump!");
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-    }
+    public void ProcessTurn(InputAction.CallbackContext context) { }
+
+    public void ProcessJump(InputAction.CallbackContext context) { }
+
 
     public void UpdateStrategy() { /* 플랫폼 게임 Update 로직 */ }
-    public void FixedUpdateStrategy() { /* 플랫폼 게임 FixedUpdate 로직 */ }
+    public void FixedUpdateStrategy() 
+    {
+        rb.velocity = moveDirection * stat.Speed;
+    }
+
+
+  
 }

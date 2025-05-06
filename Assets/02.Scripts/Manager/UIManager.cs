@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -7,15 +8,14 @@ public enum UIState
 {
     Start,
     Game,
-    Pause,
     GameOver
 }
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private BaseUI startUI;
-    [SerializeField] private BaseUI gameUI;
-    [SerializeField] private BaseUI pauseUI;
-    [SerializeField] private BaseUI gameOverUI;
+    protected BaseUI startUI;
+    protected BaseUI gameUI;
+    protected BaseUI pauseUI;
+    protected BaseUI gameOverUI;
 
     private UIState currentState;
 
@@ -26,30 +26,25 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("UI Manager Components Not Found");
             return;
         }
+    
+    }
+
+    private void Start()
+    {
         startUI.Init(this);
         gameUI.Init(this);
-        pauseUI.Init(this);
         gameOverUI.Init(this);
+
+        ChangeState(UIState.Start);
     }
+
+    public virtual void UpdateUI() { }
 
     public void ChangeState(UIState state)
     {
         currentState = state;
         startUI.SetActive(currentState);
         gameUI.SetActive(currentState);
-        pauseUI.SetActive(currentState);
         gameOverUI.SetActive(currentState);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/FlappyGame.unity
     guid: 0766021a5863eb144b48d14580ca0040
+  - enabled: 1
+    path: Assets/01.Scenes/JumpUpGame.unity
+    guid: 1432024c12cada44c9a18f47c3931f37
+  - enabled: 1
+    path: Assets/01.Scenes/InfiniteStairsGame.unity
+    guid: f6031c55911aa57409415b34ec247fb1
   m_configObjects: {}

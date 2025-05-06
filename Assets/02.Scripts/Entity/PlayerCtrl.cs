@@ -94,12 +94,18 @@ public class PlayerCtrl : MonoBehaviour
             case "FlappyGame":
                 newStrategy = new FlappyControlStrategy();
                 break;
-            // 다른 맵/전략 추가
+            case "JumpUpGame":
+                newStrategy = new JumpUpControlStrategy();
+                break; 
+            case "InfiniteStairsGame":
+                newStrategy = new InfiniteStairsControlStrategy();
+                break;
             default:
                 Debug.LogWarning($"PlayerCtrl2D: Unknown map '{newMapName}', no strategy set.");
                 break;
         }
         ChangeStrategy(newStrategy);
+        SubscribeInputActions(newMapName);
     }
 
     // 전략 변경 메서드
@@ -112,12 +118,9 @@ public class PlayerCtrl : MonoBehaviour
         currentStrategy?.Enter(this); // 새 전략 시작 처리 (PlayerCtrl2D 참조 전달)
     }
 
-    // --- Input System 이벤트 콜백 ---
-    // 주의: 이 콜백들이 호출되려면 해당 Action들이 GlobalInputManager에 의해 활성화된 Map에 포함되어 있어야 함
-
     private void OnEnable()
     {
-        SubscribeInputActions();
+        SubscribeInputActions("MainPlatform");
     }
 
     private void OnDisable()
@@ -125,19 +128,23 @@ public class PlayerCtrl : MonoBehaviour
         UnsubscribeInputActions();
     }
 
-    private void SubscribeInputActions()
+    private void SubscribeInputActions(string newMapName)
     {
-        if (playerInputSystem == null) return;
+        InputActionMap currentActiveMap = playerInputSystem.asset.FindActionMap(newMapName);
 
-        // 모든 필요한 Action 찾아서 구독 (어떤 맵에 속하든 이름으로 찾기 시도)
-        InputAction move = playerInputSystem.asset?.FindAction("Move");
-        InputAction jump = playerInputSystem.asset?.FindAction("Jump");
-        // InputAction look = playerInputSystem.asset?.FindAction("Look"); // 2D에서는 Look이 다를 수 있음
+        if (currentActiveMap != null)
+        {
+            // 모든 필요한 Action 찾아서 구독 (어떤 맵에 속하든 이름으로 찾기 시도)
+            InputAction move = playerInputSystem.asset?.FindAction("Move");
+            InputAction jump = playerInputSystem.asset?.FindAction("Jump");
+            InputAction turn = playerInputSystem.asset?.FindAction("Turn");
 
-        if (move != null) { move.performed += OnMove; move.canceled += OnMoveCanceled; }
-        if (jump != null) { jump.performed += OnJump; }
-        // if (look != null) { look.performed += OnLook; }
+            if (move != null) { move.performed += OnMove; move.canceled += OnMoveCanceled; }
+            if (jump != null) { jump.performed += OnJump; }
+            if (turn != null) { turn.performed += OnTurn; }
+        }
     }
+
 
     private void UnsubscribeInputActions()
     {
@@ -145,27 +152,27 @@ public class PlayerCtrl : MonoBehaviour
 
         InputAction move = playerInputSystem.asset?.FindAction("Move");
         InputAction jump = playerInputSystem.asset?.FindAction("Jump");
-        // InputAction look = playerInputSystem.asset?.FindAction("Look");
 
         if (move != null) { move.performed -= OnMove; move.canceled -= OnMoveCanceled; }
         if (jump != null) { jump.performed -= OnJump; }
-        // if (look != null) { look.performed -= OnLook; }
     }
 
-    // 입력 콜백 -> 현재 전략에게 위임
     private void OnMove(InputAction.CallbackContext context)
     {
-        currentStrategy?.ProcessMovement(context.ReadValue<Vector2>());
+        currentStrategy?.ProcessMovement(context);
     }
     private void OnMoveCanceled(InputAction.CallbackContext context)
     {
-        currentStrategy?.ProcessMovement(Vector2.zero); // 입력 중단 시 0 전달
+        currentStrategy?.ProcessMovement(context); // 입력 중단 시 0 전달
     }
     private void OnJump(InputAction.CallbackContext context)
     {
         currentStrategy?.ProcessJump(context);
+    }  
+    void OnTurn(InputAction.CallbackContext context)
+    {
+        currentStrategy?.ProcessTurn(context);
     }
-    // private void OnLook(InputAction.CallbackContext context) { currentStrategy?.ProcessLook(context.ReadValue<Vector2>()); }
 
     public void ToggleRiding()      //탈것 on/off
     {
@@ -176,7 +183,6 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    // --- Unity Lifecycle Methods -> 현재 전략에게 위임 ---
     void Update()
     {
         currentStrategy?.UpdateStrategy();

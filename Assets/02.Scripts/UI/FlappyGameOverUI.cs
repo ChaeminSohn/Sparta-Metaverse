@@ -1,32 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FlappyGameOverUI : BaseUI
 {
-    [SerializeField] Button gameOverButton;
+    [SerializeField] TextMeshProUGUI currentScoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
+
     protected override UIState GetUIState()
     {
         return UIState.GameOver;
     }
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void OnEnable()
     {
-        gameOverButton?.onClick.AddListener(OnClickExitButton);
+        currentScoreText.text = FlappyGameManager.Instance.currentScore.ToString();
+        highScoreText.text = FlappyGameManager.Instance.highScore.ToString();  
     }
 
-    // Update is called once per frame
-    void Update()
+   
+    public void OnClickRetryButton()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     public void OnClickExitButton()
     {
         SceneManager.LoadScene("MainPlatform");
         Time.timeScale = 1.0f;
     }
+
+    
 }

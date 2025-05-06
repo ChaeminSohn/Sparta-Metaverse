@@ -1,23 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class FlappyGameUI : BaseUI
 {
+    [SerializeField] TextMeshProUGUI currentScoreText;
+    [SerializeField] TextMeshProUGUI highScoreText;
+
+    public override void Init(UIManager uIManager)
+    {
+        base.Init(uIManager);
+        
+    }
+
+    private void OnEnable()
+    {
+        highScoreText.text = FlappyGameManager.Instance.highScore.ToString();
+    }
     protected override UIState GetUIState()
     {
         return UIState.Game;
     }
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public void UpdateScore(int score)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        currentScoreText.text = score.ToString();
     }
 }

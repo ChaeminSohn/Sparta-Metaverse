@@ -6,9 +6,11 @@ public class FlappyGameManager : MonoBehaviour
 {
     [SerializeField] UIManager uiManager;
     private readonly string scoreTypeKey = "FlappyScore";
-    private static FlappyGameManager instance;
-    public int currentScore = 0;
+
+    public int currentScore { get; private set; } = 0;
+    public int highScore { get; private set; } = 0;
     public static FlappyGameManager Instance { get { return instance; } }
+    private static FlappyGameManager instance;
 
     public bool isGameOver = false;
 
@@ -16,14 +18,25 @@ public class FlappyGameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         instance = this;
-        uiManager.ChangeState(UIState.Start);
-    }
 
+        if (PlayerPrefs.HasKey(scoreTypeKey))
+        {
+            highScore = PlayerPrefs.GetInt(scoreTypeKey);   
+        }
+    }
+        
     public void GameStart()
     {
         isGameOver = false;
         Time.timeScale = 1f;
         uiManager.ChangeState(UIState.Game);
+    }
+
+    public void AddScore(int score)
+    {
+        currentScore += score;
+
+        uiManager.UpdateUI();
     }
     public void GameOver()
     {
@@ -34,7 +47,7 @@ public class FlappyGameManager : MonoBehaviour
         //PlayerPrefs에 점수 저장
         if(PlayerPrefs.HasKey(scoreTypeKey)) 
         {
-            if(currentScore > PlayerPrefs.GetInt(scoreTypeKey))
+            if(currentScore > highScore)
             {
                 PlayerPrefs.SetInt(scoreTypeKey, currentScore);
             }

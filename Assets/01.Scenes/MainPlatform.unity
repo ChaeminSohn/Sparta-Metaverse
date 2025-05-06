@@ -4404,7 +4404,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7.01, y: 7.35, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6042,6 +6042,67 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1847902616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5767573977898642519, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_Name
+      value: Door (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5978875813505771768, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: targetSceneName
+      value: InfiniteStairsGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7831419301468846345, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ed712aa0c1b6204bafa7c7aac8c5c9c, type: 3}
 --- !u!1001 &1091435859541048608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6052,11 +6113,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2416138875452328108, guid: e34ab45e4eff5754eae222c4b24f9b33, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 7.01
       objectReference: {fileID: 0}
     - target: {fileID: 2416138875452328108, guid: e34ab45e4eff5754eae222c4b24f9b33, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 7.35
       objectReference: {fileID: 0}
     - target: {fileID: 2416138875452328108, guid: e34ab45e4eff5754eae222c4b24f9b33, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6165,3 +6226,4 @@ SceneRoots:
   - {fileID: 522818228}
   - {fileID: 857480018}
   - {fileID: 8768984043175197539}
+  - {fileID: 1847902616}
