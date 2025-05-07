@@ -16,8 +16,8 @@ public class InfiniteStairsGameManager : MonoBehaviour
     public int goldPerScore { get; private set; } = 20;     //점수 당 골드 지급량
     public int highScore { get; private set; } = 0;
     public int moveCnt { get; private set; } = 0;
+    public bool isGameOver { get; private set; } = true;
     private int stairIndex = 0;
-    private bool isGameOver = true;
     public float currentTime;
 
     private void Awake()
