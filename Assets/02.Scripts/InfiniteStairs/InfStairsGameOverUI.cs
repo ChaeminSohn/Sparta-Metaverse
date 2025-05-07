@@ -34,6 +34,4 @@ public class InfStairsGameOverUI : BaseUI
     {
         SceneManager.LoadScene("MainPlatform");
     }
-
-
 }

@@ -1,4 +1,4 @@
-    public class FlappyUIManager : UIManager
+public class FlappyUIManager : UIManager
 {
     void Awake()
     {

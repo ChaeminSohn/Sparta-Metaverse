@@ -39,6 +39,7 @@ public class InfiniteStairsControlStrategy : IControlStrategy
 
         if (context.performed)
         {
+            //바라보는 방향 위쪽으로 한칸 이동
             InfiniteStairsGameManager.Instance.OnPlayerMove(isTurn);
             if (isTurn)
             {
@@ -58,7 +59,7 @@ public class InfiniteStairsControlStrategy : IControlStrategy
             return;
         }
 
-        Debug.Log("turn");
+        //바라보는 방향 전환
         Vector2 input = context.ReadValue<Vector2>();
         isTurn = input.x < 0;
         spriteRenderer.flipX = isTurn;

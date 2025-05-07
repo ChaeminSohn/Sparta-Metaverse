@@ -13,9 +13,6 @@ public class PlayerCtrl : MonoBehaviour
     private IControlStrategy currentStrategy; // 현재 컨트롤 전략
     private bool isRiding = false;      //현재 탈것 상태
 
-    // 컴포넌트 참조 (Awake에서 할당)
-    private Rigidbody2D rb;
-    private Animator anim; // 애니메이터 사용 시
 
     void Awake()
     {
@@ -32,10 +29,6 @@ public class PlayerCtrl : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        // 컴포넌트 참조 가져오기
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
 
         if (ridingSprite == null)
         {
