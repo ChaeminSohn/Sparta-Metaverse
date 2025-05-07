@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public interface IControlStrategy
@@ -14,3 +11,6 @@ public interface IControlStrategy
     void UpdateStrategy();         // 매 프레임 로직 (Update)
     void FixedUpdateStrategy();    // 물리 관련 로직 (FixedUpdate)
 }
+
+
+
