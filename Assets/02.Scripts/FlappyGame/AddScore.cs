@@ -10,7 +10,6 @@ public class AddScore : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("sex");
             FlappyGameManager.Instance.AddScore(score);
         }
     }

@@ -12,6 +12,8 @@ public class FlappyGameManager : MonoBehaviour
     public static FlappyGameManager Instance { get { return instance; } }
     private static FlappyGameManager instance;
 
+    private PlayerCtrl player;
+    public int goldPerScore { get; private set; } = 100;  //점수 당 골드 지급량
     public bool isGameOver = false;
 
     private void Awake()
@@ -23,6 +25,7 @@ public class FlappyGameManager : MonoBehaviour
         {
             highScore = PlayerPrefs.GetInt(scoreTypeKey);   
         }
+        player = PlayerCtrl.Instance;
     }
         
     public void GameStart()
@@ -56,5 +59,7 @@ public class FlappyGameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt(scoreTypeKey, currentScore);
         }
+
+        player.GetComponent<PlayerResourceCtrl>().ChangeGold(currentScore *  goldPerScore);
     }
 }

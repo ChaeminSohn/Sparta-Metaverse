@@ -35,7 +35,6 @@ public class PlatformControlStrategy : IControlStrategy
     public void Exit()
     {
         Debug.Log("Platformer Strategy 2D Deactivated");
-        // 필요시 정리 (예: 속도 0으로)
         if (rb != null) rb.velocity = Vector2.zero;
     }
 
@@ -57,7 +56,7 @@ public class PlatformControlStrategy : IControlStrategy
     public void ProcessJump(InputAction.CallbackContext context) { }
 
 
-    public void UpdateStrategy() { /* 플랫폼 게임 Update 로직 */ }
+    public void UpdateStrategy() {}
     public void FixedUpdateStrategy() 
     {
         rb.velocity = moveDirection * stat.Speed;

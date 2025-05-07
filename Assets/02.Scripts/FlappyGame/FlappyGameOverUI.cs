@@ -10,6 +10,7 @@ public class FlappyGameOverUI : BaseUI
 {
     [SerializeField] TextMeshProUGUI currentScoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI goldRewardText;
 
     protected override UIState GetUIState()
     {
@@ -20,8 +21,10 @@ public class FlappyGameOverUI : BaseUI
 
     private void OnEnable()
     {
-        currentScoreText.text = FlappyGameManager.Instance.currentScore.ToString();
-        highScoreText.text = FlappyGameManager.Instance.highScore.ToString();  
+        int currentScore = FlappyGameManager.Instance.currentScore;
+        currentScoreText.text = currentScore.ToString();
+        highScoreText.text = FlappyGameManager.Instance.highScore.ToString();
+        goldRewardText.text = (FlappyGameManager.Instance.goldPerScore * currentScore).ToString();
     }
 
    

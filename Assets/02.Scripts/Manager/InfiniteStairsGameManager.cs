@@ -13,6 +13,7 @@ public class InfiniteStairsGameManager : MonoBehaviour
     public static InfiniteStairsGameManager Instance { get { return instance; } }
 
     private PlayerCtrl player;
+    public int goldPerScore { get; private set; } = 20;     //점수 당 골드 지급량
     public int highScore { get; private set; } = 0;
     public int moveCnt { get; private set; } = 0;
     private int stairIndex = 0;
@@ -23,7 +24,7 @@ public class InfiniteStairsGameManager : MonoBehaviour
     {
         instance = this;
         currentTime = timeLimit;
-        if(spawner == null)
+        if (spawner == null)
         {
             Debug.LogWarning("Stair Spawner not Found");
         }
@@ -32,7 +33,7 @@ public class InfiniteStairsGameManager : MonoBehaviour
         {
             highScore = PlayerPrefs.GetInt(scoreTypeKey);
         }
-        player = FindAnyObjectByType<PlayerCtrl>();
+        player = PlayerCtrl.Instance;
     }
 
     private void Update()
@@ -114,6 +115,8 @@ public class InfiniteStairsGameManager : MonoBehaviour
         Camera.main.GetComponent<FollowCam>().enabled = false;
         player.GetComponent<Rigidbody2D>().gravityScale = 1.0f;
         StartCoroutine(GameOverRoutine());
+
+        player.GetComponent<PlayerResourceCtrl>().ChangeGold(moveCnt * goldPerScore);
     }
 
     IEnumerator GameOverRoutine()

@@ -9,6 +9,7 @@ public class InfStairsGameOverUI : BaseUI
 {
     [SerializeField] TextMeshProUGUI currentScoreText;
     [SerializeField] TextMeshProUGUI highScoreText;
+    [SerializeField] TextMeshProUGUI goldRewardText;
     [SerializeField] Button exitButton;
     protected override UIState GetUIState()
     {
@@ -25,8 +26,10 @@ public class InfStairsGameOverUI : BaseUI
 
     private void OnEnable()
     {
-        currentScoreText.text = InfiniteStairsGameManager.Instance.moveCnt.ToString();
+        int currentScore = InfiniteStairsGameManager.Instance.moveCnt;
+        currentScoreText.text = currentScore.ToString();
         highScoreText.text = InfiniteStairsGameManager.Instance.highScore.ToString();
+        goldRewardText.text = (InfiniteStairsGameManager.Instance.goldPerScore * currentScore).ToString();
     }
 
     public void OnClickExitButton()
