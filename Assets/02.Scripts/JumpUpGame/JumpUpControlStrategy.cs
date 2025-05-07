@@ -21,7 +21,8 @@ public class JumpUpControlStrategy : IControlStrategy
         this.rb = player.GetComponent<Rigidbody2D>();
         this.spriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.flipX = false;
-        Debug.Log("Platformer Strategy 2D Activated");
+        Debug.Log("JumpUp Strategy 2D Activated");
+        Debug.LogWarning("JumpUp 게임은 현재 구현이 완료되지 않은 상황입니다. 죄송합니다.");
         // 플랫폼 게임에 맞는 Rigidbody 중력 설정 
         rb.gravityScale = 1f;
     }

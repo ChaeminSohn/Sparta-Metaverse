@@ -15,6 +15,9 @@ public class InfStairsGameOverUI : BaseUI
         return UIState.GameOver;
     }
 
+    public override void UpdateUI() { }
+
+
     private void Start()
     {
         exitButton.onClick.AddListener(OnClickExitButton);
@@ -30,4 +33,6 @@ public class InfStairsGameOverUI : BaseUI
     {
         SceneManager.LoadScene("MainPlatform");
     }
+
+
 }

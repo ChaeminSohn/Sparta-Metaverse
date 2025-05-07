@@ -14,6 +14,6 @@ public class InfStairsUIManager : UIManager
 
     public override void UpdateUI()
     {
-        ((InfStairsGameUI)gameUI).UpdateScore(InfiniteStairsGameManager.Instance.moveCnt);
+        gameUI.UpdateUI();
     }
 }

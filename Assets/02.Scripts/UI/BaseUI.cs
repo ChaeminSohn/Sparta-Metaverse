@@ -10,7 +10,8 @@ public abstract class BaseUI : MonoBehaviour
         this.uIManager = uIManager;
     }
 
-    protected abstract UIState GetUIState();
+    protected abstract UIState GetUIState();    //UI 종류 반환
+    public abstract void UpdateUI();    //UI 업데이트 
 
     public void SetActive(UIState state)
     {

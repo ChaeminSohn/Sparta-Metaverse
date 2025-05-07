@@ -11,20 +11,16 @@ public class FlappyStartUI : BaseUI
         return UIState.Start;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         startButton?.onClick.AddListener(StartGame);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartGame()
     {
         FlappyGameManager.Instance.GameStart();
     }
+
+    public override void UpdateUI() { }
+
 }

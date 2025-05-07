@@ -14,8 +14,7 @@ using UnityEngine;
 
     public override void UpdateUI()
     {
-        base.UpdateUI();
-        ((FlappyGameUI)gameUI).UpdateScore(FlappyGameManager.Instance.currentScore);
+        gameUI.UpdateUI();
     }
 
 }

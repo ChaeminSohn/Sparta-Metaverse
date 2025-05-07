@@ -15,6 +15,7 @@ public class FlappyGameOverUI : BaseUI
     {
         return UIState.GameOver;
     }
+    public override void UpdateUI() { }
 
 
     private void OnEnable()
@@ -34,5 +35,6 @@ public class FlappyGameOverUI : BaseUI
         Time.timeScale = 1.0f;
     }
 
-    
+   
+ 
 }

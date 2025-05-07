@@ -11,6 +11,8 @@ public class InfStairsStartUI : BaseUI
         return UIState.Start;
     }
 
+    public override void UpdateUI() { }
+
     private void Start()
     {
         startButton.onClick.AddListener(OnClickStartButton);
@@ -20,4 +22,7 @@ public class InfStairsStartUI : BaseUI
     {
         InfiniteStairsGameManager.Instance.GameStart();
     }
+
+   
+
 }

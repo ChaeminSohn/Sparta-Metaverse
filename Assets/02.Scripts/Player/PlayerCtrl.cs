@@ -9,6 +9,7 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] private SpriteRenderer mainSprite;     //플레이어 캐릭터 스프라이트
     [SerializeField] private SpriteRenderer ridingSprite;     //탈것 스프라이트
     private PlayerInputSystem playerInputSystem;
+    //플레이어의 조작법은 맵(미니게임)에 따라 달라지므로 전략 패턴을 사용하여 현재 ControlStrategy에 따라 다른 조작법을 구현
     private IControlStrategy currentStrategy; // 현재 컨트롤 전략
     private bool isRiding = false;      //현재 탈것 상태
 
@@ -66,7 +67,7 @@ public class PlayerCtrl : MonoBehaviour
 
             // 시작 시 초기 전략 설정 (현재 맵 기반으로)
             // GlobalInputManager에 GetCurrentMapName() 같은 함수가 있다면 사용
-            HandleMapChange("MainPlatform"); // 임시: 초기 맵 이름 지정
+            HandleMapChange("MainPlatform"); // 초기 맵 이름 지정
         }
     }
 
@@ -146,15 +147,19 @@ public class PlayerCtrl : MonoBehaviour
     }
 
 
-    private void UnsubscribeInputActions()
+    private void UnsubscribeInputActions()  
     {
         if (playerInputSystem == null) return;
 
+        //모든 Action 구독 해제
         InputAction move = playerInputSystem.asset?.FindAction("Move");
         InputAction jump = playerInputSystem.asset?.FindAction("Jump");
+        InputAction turn = playerInputSystem.asset?.FindAction("Turn");
 
         if (move != null) { move.performed -= OnMove; move.canceled -= OnMoveCanceled; }
         if (jump != null) { jump.performed -= OnJump; }
+        if (turn != null) { turn.performed -= OnTurn; }
+        if (turn != null) { turn.performed -= OnTurn; }
     }
 
     private void OnMove(InputAction.CallbackContext context)

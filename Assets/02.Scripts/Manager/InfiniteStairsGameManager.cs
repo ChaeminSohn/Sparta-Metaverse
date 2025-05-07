@@ -6,6 +6,7 @@ public class InfiniteStairsGameManager : MonoBehaviour
 {
     [SerializeField] private UIManager uiManager;
     [SerializeField] private StairSpawner spawner;
+    [SerializeField] private float timeLimit;
     private readonly string scoreTypeKey = "InfinityStairsScore";
 
     private static InfiniteStairsGameManager instance;
@@ -15,13 +16,13 @@ public class InfiniteStairsGameManager : MonoBehaviour
     public int highScore { get; private set; } = 0;
     public int moveCnt { get; private set; } = 0;
     private int stairIndex = 0;
-    private int spawnCnt = 0;
     private bool isGameOver = true;
+    public float currentTime;
 
     private void Awake()
     {
         instance = this;
-
+        currentTime = timeLimit;
         if(spawner == null)
         {
             Debug.LogWarning("Stair Spawner not Found");
@@ -34,6 +35,19 @@ public class InfiniteStairsGameManager : MonoBehaviour
         player = FindAnyObjectByType<PlayerCtrl>();
     }
 
+    private void Update()
+    {
+        if(isGameOver)  return; 
+
+        currentTime -= Time.deltaTime;
+        if (currentTime < 0) 
+        {
+            currentTime = 0;
+            GameOver();
+        }
+        uiManager.UpdateUI();
+    }
+
 
     public void OnPlayerMove(bool isTurn)
     {
@@ -41,11 +55,7 @@ public class InfiniteStairsGameManager : MonoBehaviour
 
         if (moveCnt >= 5)
         {
-            spawner.RespawnStair(spawnCnt++);
-            if(spawnCnt > spawner.stairs.Length - 1)
-            {
-                spawnCnt = 0;
-            }
+            spawner.RespawnStair();
         }
 
         if (isTurn)    

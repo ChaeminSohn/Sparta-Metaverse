@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class FlappyGameUI : BaseUI
 {
@@ -18,13 +19,13 @@ public class FlappyGameUI : BaseUI
     {
         highScoreText.text = FlappyGameManager.Instance.highScore.ToString();
     }
+
+    public override void UpdateUI() 
+    {
+        currentScoreText.text = FlappyGameManager.Instance.currentScore.ToString();
+    }
     protected override UIState GetUIState()
     {
         return UIState.Game;
-    }
-    
-    public void UpdateScore(int score)
-    {
-        currentScoreText.text = score.ToString();
     }
 }
