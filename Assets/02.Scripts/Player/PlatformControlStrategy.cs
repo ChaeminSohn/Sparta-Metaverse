@@ -10,8 +10,6 @@ public class PlatformControlStrategy : IControlStrategy
     private SpriteRenderer spriteRenderer;
     private PlayerAnimCtrl playerAnimCtrl;
     private Vector2 moveDirection = Vector2.zero;
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
 
     public void Enter(PlayerCtrl player)
     {
@@ -19,18 +17,18 @@ public class PlatformControlStrategy : IControlStrategy
         stat = player.GetComponent<StatCtrl>();
         player.transform.position = Vector3.zero;
         rb = player.GetComponent<Rigidbody2D>();
-        spriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = player.mainSprite;
         playerAnimCtrl = player.GetComponent<PlayerAnimCtrl>();
         playerAnimCtrl.Init();
         spriteRenderer.flipX = false;
-        Debug.Log("Platformer Strategy 2D Activated");
+        Debug.Log("Platformer Strategy Activated");
         // 플랫폼 게임에 맞는 Rigidbody 중력 설정 
         rb.gravityScale = 0f;
     }
 
     public void Exit()
     {
-        Debug.Log("Platformer Strategy 2D Deactivated");
+        Debug.Log("Platformer Strategy Deactivated");
         if (rb != null) rb.velocity = Vector2.zero;
     }
 

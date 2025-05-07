@@ -13,15 +13,15 @@ public class FlappyControlStrategy : IControlStrategy
         player.transform.position = Vector3.zero;
         player.ToggleRiding();
         this.rb = player.GetComponent<Rigidbody2D>();
-        player.GetComponentInChildren<SpriteRenderer>().flipX = false;
-        Debug.Log("Flappy Strategy 2D Activated");
+        player.mainSprite.flipX = false;
+        Debug.Log("Flappy Strategy Activated");
         // 플래피 게임에 맞는 Rigidbody2D 설정 
         rb.gravityScale = 1f; 
     }
 
     public void Exit()
     {
-        Debug.Log("Flappy Strategy 2D Deactivated");
+        Debug.Log("Flappy Strategy Deactivated");
         player.ToggleRiding();
         if (rb != null) rb.velocity = Vector2.zero;
         

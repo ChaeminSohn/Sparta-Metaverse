@@ -6,8 +6,8 @@ public class PlayerCtrl : MonoBehaviour
 {
     public static PlayerCtrl Instance { get; private set; } //플레이어 싱글톤 처리
 
-    [SerializeField] private SpriteRenderer mainSprite;     //플레이어 캐릭터 스프라이트
-    [SerializeField] private SpriteRenderer ridingSprite;     //탈것 스프라이트
+    public SpriteRenderer mainSprite;       //플레이어 메인 스프라이트
+    public SpriteRenderer ridingSprite;     //탈것 스프라이트
     private PlayerInputSystem playerInputSystem;
     //플레이어의 조작법은 맵(미니게임)에 따라 달라지므로 전략 패턴을 사용하여 현재 ControlStrategy에 따라 다른 조작법을 구현
     private IControlStrategy currentStrategy; // 현재 컨트롤 전략
@@ -27,7 +27,7 @@ public class PlayerCtrl : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"이미 PlayerCtrl2D 인스턴스(ID: {Instance.GetInstanceID()})가 존재합니다. " +
+            Debug.LogWarning($"이미 PlayerCtrl 인스턴스(ID: {Instance.GetInstanceID()})가 존재합니다. " +
                             $"새로 로드된 인스턴스(ID: {this.GetInstanceID()})를 파괴합니다.");
             Destroy(gameObject);
             return;
@@ -37,13 +37,9 @@ public class PlayerCtrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
-        if (mainSprite == null)
-        {
-            Debug.LogError("Main Sprite Renderer가 할당되지 않았습니다!", this.gameObject);
-        }
         if (ridingSprite == null)
         {
-            Debug.LogError("Riding Sprite Renderer가 할당되지 않았습니다!", this.gameObject);
+            Debug.LogError("Riding Sprite Renderer가 할당되지 않았습니다!");
         }
 
         // GlobalInputManager에서 InputSystem 가져오기
@@ -82,7 +78,7 @@ public class PlayerCtrl : MonoBehaviour
     // Action Map 변경 시 호출될 핸들러
     private void HandleMapChange(string newMapName)
     {
-        Debug.Log($"PlayerCtrl2D handling map change: {newMapName}");
+        Debug.Log($"PlayerCtrl handling map change: {newMapName}");
         IControlStrategy newStrategy = null;
 
         switch (newMapName)
@@ -100,11 +96,12 @@ public class PlayerCtrl : MonoBehaviour
                 newStrategy = new InfiniteStairsControlStrategy();
                 break;
             default:
-                Debug.LogWarning($"PlayerCtrl2D: Unknown map '{newMapName}', no strategy set.");
+                Debug.LogWarning($"Unknown map '{newMapName}', no strategy set.");
                 break;
         }
-        ChangeStrategy(newStrategy);
+        UnsubscribeInputActions();
         SubscribeInputActions(newMapName);
+        ChangeStrategy(newStrategy);
     }
 
     // 전략 변경 메서드

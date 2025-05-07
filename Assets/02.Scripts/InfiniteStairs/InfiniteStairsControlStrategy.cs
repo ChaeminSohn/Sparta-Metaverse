@@ -15,28 +15,28 @@ public class InfiniteStairsControlStrategy : IControlStrategy
         this.player = player;
         player.transform.position = new Vector2 (0, -0.5f);
         rb = player.GetComponent<Rigidbody2D>();
-        spriteRenderer = player.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = player.mainSprite;
         playerAnimCtrl = player.GetComponent<PlayerAnimCtrl>();
         playerAnimCtrl.Init();
         spriteRenderer.flipX = false;
-        Debug.Log("Infinite Stairs Strategy 2D Activated");
-        // 플랫폼 게임에 맞는 Rigidbody 중력 설정 
+        Debug.Log("Infinite Stairs Strategy Activated");
+        // 게임에 맞는 Rigidbody 중력 설정 
         rb.gravityScale = 0f;
     }
 
     public void Exit() 
     {
+        Debug.Log("Infinity Stairs Strategy Deactivated");
         player.enabled = true;
     }
-  
-
-    public void ProcessJump(InputAction.CallbackContext context)
-    {
-
-    }
-
+    public void ProcessJump(InputAction.CallbackContext context) { }
     public void ProcessMovement(InputAction.CallbackContext context)
     {
+        if (InfiniteStairsGameManager.Instance.isGameOver)
+        {
+            return;
+        }
+
         if (context.performed)
         {
             InfiniteStairsGameManager.Instance.OnPlayerMove(isTurn);
@@ -53,18 +53,17 @@ public class InfiniteStairsControlStrategy : IControlStrategy
 
     public void ProcessTurn(InputAction.CallbackContext context)
     {
+        if (InfiniteStairsGameManager.Instance.isGameOver)
+        {
+            return;
+        }
+
         Debug.Log("turn");
         Vector2 input = context.ReadValue<Vector2>();
         isTurn = input.x < 0;
         spriteRenderer.flipX = isTurn;
     }
 
-    public void UpdateStrategy()
-    {
-
-    }
-    public void FixedUpdateStrategy()
-    {
-
-    }
+    public void UpdateStrategy() { }
+    public void FixedUpdateStrategy() { }
 }
