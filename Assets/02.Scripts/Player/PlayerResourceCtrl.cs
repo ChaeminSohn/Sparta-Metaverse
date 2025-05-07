@@ -5,27 +5,28 @@ using UnityEngine;
 public class PlayerResourceCtrl : MonoBehaviour
 {
     private readonly string playerGoldKey = "PlayerGold";
-    public static int playerGold { get; private set; }
+    public static int PlayerGold { get; private set; }
 
     private void Start()
     {
         if (PlayerPrefs.HasKey(playerGoldKey))
         {
-            playerGold = PlayerPrefs.GetInt(playerGoldKey);
+            PlayerGold = PlayerPrefs.GetInt(playerGoldKey);
         }
         else
         {
-            playerGold = 0;
+            PlayerGold = 0;
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt(playerGoldKey, playerGold);
     }
 
     public void ChangeGold(int gold)
     {
-        playerGold += gold;
+        PlayerGold += gold;
+    }
+
+    private void OnApplicationQuit()    
+    {
+        //게임 종료 시 모든 리소스 값 저장
+        PlayerPrefs.SetInt(playerGoldKey, PlayerGold);
     }
 }

@@ -6,11 +6,6 @@ using UnityEngine.UIElements;
 public class RecordBook : MonoBehaviour
 {
     [SerializeField] BaseUI RecordUI;
-    private readonly string flappyScoreTypeKey = "FlappyScore";
-    private readonly string infStairScoreTypeKey = "InfinityStairsScore";
-
-    private int flappyHighScore;
-    private int infStairsHighScore;
     private void Start()
     {
         RecordUI.UpdateUI();

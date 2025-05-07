@@ -15,7 +15,7 @@ public class PlayerResourceUI : BaseUI
 
     public override void UpdateUI()
     {
-        goldText.text = PlayerResourceCtrl.playerGold.ToString();
+        goldText.text = PlayerResourceCtrl.PlayerGold.ToString();
     }
 
     protected override UIState GetUIState()
