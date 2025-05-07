@@ -23,7 +23,6 @@ public class JumpUpControlStrategy : IControlStrategy
         spriteRenderer.flipX = false;
         Debug.Log("JumpUp Strategy 2D Activated");
         Debug.LogWarning("JumpUp 게임은 현재 구현이 완료되지 않은 상황입니다. 죄송합니다.");
-        // 플랫폼 게임에 맞는 Rigidbody 중력 설정 
         rb.gravityScale = 1f;
     }
 
@@ -47,7 +46,6 @@ public class JumpUpControlStrategy : IControlStrategy
 
     public void ProcessMovement(Vector2 input)
     {
-        // 좌우 이동 (Velocity 직접 제어 방식 예시)
         // 점프 상태일 시 이동속도 절감
         float currentSpeed = stat.Speed;
         if (isJumping)

@@ -65,8 +65,6 @@ public class PlayerCtrl : MonoBehaviour
         {
             GlobalInputManager.Instance.OnMapChanged += HandleMapChange;
 
-            // 시작 시 초기 전략 설정 (현재 맵 기반으로)
-            // GlobalInputManager에 GetCurrentMapName() 같은 함수가 있다면 사용
             HandleMapChange("MainPlatform"); // 초기 맵 이름 지정
         }
     }
@@ -116,7 +114,7 @@ public class PlayerCtrl : MonoBehaviour
 
         currentStrategy?.Exit(); // 이전 전략 종료 처리
         currentStrategy = newStrategy;
-        currentStrategy?.Enter(this); // 새 전략 시작 처리 (PlayerCtrl2D 참조 전달)
+        currentStrategy?.Enter(this); // 새 전략 시작 처리 (PlayerCtrl 참조 전달)
     }
 
     private void OnEnable()
